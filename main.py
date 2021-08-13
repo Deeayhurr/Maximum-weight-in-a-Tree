@@ -1,6 +1,4 @@
-import graph
-
-
+from graph import Graph
 def userguide():
     """ This is a function that has enclosed the userguide of this program """
 
@@ -83,11 +81,11 @@ def getshareholderinfo() -> tuple:
 if __name__ == '__main__':
     userguide()
     shareholder_info = getshareholderinfo()
-    graph1 = graph(shareholder_info)
+    graph1 = Graph(shareholder_info)
     print(graph1.get_graph())
     cycle = graph1.is_cyclic()
     print(cycle)
-    #generated_graph = graph(shareholder_info)
-    #is_graph_cyclic = cycle.is_cyclic(generated_graph)
+    max_solution = graph1.solve_cyclic_graph()
+    print(max_solution)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

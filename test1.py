@@ -1,15 +1,10 @@
-#function to return key for any value
-
-def get_key(val):
-	for key, value in my_dict.items():
-		if val == value:
-			return key
-
-	return "key doesn't exist"
-
-# Driver Code
-
-my_dict ={"java":100, "python":112 ,"c":[11,'']}
-
-print(get_key(100))
-print(get_key(11))
+graph_dict = (('Marcel', ' 50', 'Deso'), ('Deso', '60', 'Dayo'), ('Dayo', '90', 'Marcel'), ('Vy', '40', ''))
+cycle2 = (('a', '30', '0'), ('0', '40', 'b'), ('b', '30', 'a'), ('p', '30', 'g'), ('g', '10', 'c'), ('c', '20', 'p'),
+          ('Arash', '60', ''))
+sholderinfo = (('Marcel', '50', 'Deso'), ('Dayo', '60', 'Marcel'), ('Deso', '90', ''))
+graph1 = Graph(cycle2)
+print(graph1.get_graph())
+cycle = graph1.is_cyclic()
+print(cycle)
+max_solution = graph1.solve_cyclic_graph()
+print(max_solution)

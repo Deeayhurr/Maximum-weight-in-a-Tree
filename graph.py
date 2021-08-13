@@ -91,15 +91,23 @@ class Graph:
                 component_b = component.copy()
                 component_b.remove(vertex_1)
                 solution_b = self.solve_tree(component_b)
-                solution_c = self.solve_tree(self.not_cyclic_components)
-                max_solution_weight = int(max(solution_a[0], solution_b[0])) + int(solution_c[0])
-                if max_solution_weight == int(solution_a[0]) + int(solution_c[0]):
-                    solution = {"Maximum weight:":max_solution_weight, "Shareholders:":[solution_a[1],solution_c[1]] }
+                max_solution_weight = int(max(solution_a[0], solution_b[0]))
+                if max_solution_weight == int(solution_a[0]):
+                    solution = {"Maximum weight:": max_solution_weight, "Shareholders:": solution_a[1]}
                     components_max_weights.append(solution)
                 else:
-                    solution = {"Maximum weight:": max_solution_weight, "Shareholders:": [solution_b[1], solution_c[1]]}
+                    solution = {"Maximum weight:": max_solution_weight, "Shareholders:": solution_b[1]}
                     components_max_weights.append(solution)
-            components_max_weights_solution = components_max_weights
+            list_of_solution = []
+            max_weight = 0
+            for dict_index in components_max_weights:
+                max_weight += dict_index["Maximum weight:"]
+                list_of_solution.append(dict_index["Shareholders:"])
+
+            solution_c = self.solve_tree(self.not_cyclic_components)
+            final_max_solution_weight = int(max_weight) + int(solution_c[0])
+            list_of_solution.append(solution_c[1])
+            components_max_weights_solution = {"Maximum weight:":final_max_solution_weight,"Shareholders:":list_of_solution}
             return components_max_weights_solution
 
     def solve_tree(self, components):
@@ -153,11 +161,4 @@ class Graph:
                 return maximum_weight, grandchildren
 
 
-graph_dict = (('Marcel', ' 50', 'Deso'), ('Deso', '60', 'Dayo'), ('Dayo', '90', 'Marcel'), ('Vy', '40', ''))
-sholderinfo = (('Marcel', '50', 'Deso'), ('Dayo', '60', 'Marcel'), ('Deso', '90', ''))
-graph1 = Graph(sholderinfo)
-print(graph1.get_graph())
-cycle = graph1.is_cyclic()
-print(cycle)
-max_solution = graph1.solve_cyclic_graph()
-print(max_solution)
+
