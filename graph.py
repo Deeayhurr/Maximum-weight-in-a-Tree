@@ -121,44 +121,50 @@ class Graph:
 
         components_size = len(components)
         child = self.get_child_node(root_node)
-        if child == "":
-            maximum_weight = int(self.graph_dict[root_node][0])
-            return maximum_weight, root_node
-        else:
-            weight = int(self.graph_dict[root_node][0])  # the following steps takes into consideration the root node
-            # and  get the maximum weight
-            for count in range(components_size):
-                for items in range(len(components)):
-                    node = components[items]
-                    if node == self.get_child_node(root_node):
-                        grandchild_node = self.get_child_node(child)
-                        if (grandchild_node not in grandchildren) and (grandchild_node in components):
-                            weight = weight + int(self.graph_dict[grandchild_node][0])
-                            grandchildren.append(grandchild_node)
-                            root_node = grandchild_node
-                        count += 1
-
-            weight_2 = int(self.graph_dict[child][0])  # the next steps gets the maximum weight without taking into
-            # consideration  the root node
-            children.append(child)
-            root_node = child
-
-            for count in range(components_size):
-                for items in range(len(components)):
-                    node = components[items]
-                    if node == self.get_child_node(root_node):
-                        grandchild2_node = self.get_child_node(child)
-                        if grandchild2_node not in children and (grandchild2_node in components):
-                            weight_2 = weight_2 + int(self.graph_dict[grandchild2_node][0])
-                            children.append(grandchild2_node)
-                            root_node = grandchild2_node
-                        count += 1
-
-            maximum_weight = max(weight, weight_2)
-            if maximum_weight == weight_2:
-                return maximum_weight, children
+        if components_size == 2:
+            node1 = self.graph_dict[components[0]][0]
+            node2= self.graph_dict[components[1]][0]
+            maximum_weight = max(int(node2),int(node1))
+            if maximum_weight == int(node2):
+                return maximum_weight, components[1]
             else:
-                return maximum_weight, grandchildren
+                return maximum_weight, components[0]
+        else:
+            if child == "":
+                maximum_weight = int(self.graph_dict[root_node][0])
+                return maximum_weight, root_node
+            else:
+                weight = int(self.graph_dict[root_node][0])  # the following steps takes into consideration the root node
+                # and  get the maximum weight
+                for count in range(components_size):
+                    for items in range(len(components)):
+                        node = components[items]
+                        if node == self.get_child_node(root_node):
+                            grandchild_node = self.get_child_node(child)
+                            if (grandchild_node not in grandchildren) and (grandchild_node in components):
+                                weight = weight + int(self.graph_dict[grandchild_node][0])
+                                grandchildren.append(grandchild_node)
+                                root_node = grandchild_node
+                            count += 1
 
+                weight_2 = int(self.graph_dict[child][0])  # the next steps gets the maximum weight without taking into
+                # consideration  the root node
+                children.append(child)
+                root_node = child
 
+                for count in range(components_size):
+                    for items in range(len(components)):
+                        node = components[items]
+                        if node == self.get_child_node(root_node):
+                            grandchild2_node = self.get_child_node(child)
+                            if grandchild2_node not in children and (grandchild2_node in components):
+                                weight_2 = weight_2 + int(self.graph_dict[grandchild2_node][0])
+                                children.append(grandchild2_node)
+                                root_node = grandchild2_node
+                            count += 1
 
+                maximum_weight = max(weight, weight_2)
+                if maximum_weight == weight_2:
+                    return maximum_weight, children
+                else:
+                    return maximum_weight, grandchildren
