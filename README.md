@@ -1,4 +1,6 @@
 # Maximum-weight-in-a-Tree
+Team Members: Adeyemi Adedayo Tolulope, Hilal Saim 
+This project was initially written in Java.
 PROBLEM DESCRIPTION 
 The project is about finding a group of shareholders in a joint-stock company with the biggest sum of shares in which none of the shareholders spy each other. 
 In this company each shareholder except one spy on exactly one other shareholder. 
